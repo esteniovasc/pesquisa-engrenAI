@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENGREN.AI: O Panorama da Educação Inclusiva no Brasil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Clarity -->
+    <!-- Application Structure Plan: A single-page, scrolling narrative dashboard. The user scrolls through a story unfolding the problem, quantifying the impact, identifying the core issue, and presenting the proposed solution (ENGREN.AI) as the logical conclusion. The structure is thematic and user-journey-oriented (Paradox -> Crisis -> Anatomy of Failure -> Solution -> Market -> Strategy) rather than mirroring the report's chapters. This design choice facilitates a more intuitive and persuasive user experience, guiding the user logically from problem awareness to solution validation through interactive data and content blocks. -->
+    <!-- Visualization & Content Choices: The application uses a mix of presentation methods tailored to the information's goal. Goal: Inform/Shock -> Large, bold stats (94%, 1 em 4) and icon-based visuals. Goal: Compare -> Interactive charts from Chart.js (Donut for teacher training, Bar for educational gap, Horizontal Bar for infrastructure) housed in responsive containers. Goal: Organize/Explain -> Custom interactive diagrams built with HTML/CSS for the ENGREN.AI 'flywheel' solution and the go-to-market strategy, promoting engagement over static lists. Goal: Synthesize -> Competitor data is transformed from a dense table into interactive cards. This approach ensures clarity and impact, focusing the user's attention on the most critical insights from the report. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0d9488; 
+            border-bottom-color: #0d9488;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 600px;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                 max-height: 350px;
+            }
+        }
+        .pillar-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .pillar-card.active {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-color: #0d9488;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-[#FDFBF8] text-gray-800 antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-teal-700">ENGREN<span class="text-amber-500">.AI</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#paradoxo" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700">O Paradoxo</a>
+                        <a href="#ecossistema" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700">Ecossistema</a>
+                        <a href="#crise" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700">A Crise</a>
+                        <a href="#solucao" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700">A Solução</a>
+                        <a href="#mercado" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700">Mercado</a>
+                        <a href="#estrategia" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700">Estratégia</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="paradoxo" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-teal-800 tracking-tight">O Paradoxo da Inclusão no Brasil</h1>
+                <p class="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-gray-600">Possuímos uma das legislações mais avançadas do mundo, mas a realidade em sala de aula é de abandono e despreparo. Esta lacuna sistêmica cria uma crise silenciosa que afeta milhões.</p>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-teal-50/50 p-6 rounded-lg border border-teal-200 text-left">
+                        <div class="flex items-start">
+                            <div class="text-3xl mr-4">⚖️</div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-teal-800">LEI ROBUSTA</h3>
+                                <p class="text-gray-600 mt-2">A Constituição, a Lei Brasileira de Inclusão e a Lei Berenice Piana garantem o direito à educação inclusiva, professor de apoio e proibem a recusa de matrícula.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50/50 p-6 rounded-lg border border-amber-200 text-left">
+                         <div class="flex items-start">
+                            <div class="text-3xl mr-4">🏫</div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-amber-800">PRÁTICA FRÁGIL</h3>
+                                <p class="text-gray-600 mt-2">A implementação falha. Faltam recursos, infraestrutura e, crucialmente, formação profissional, transformando o direito em uma luta diária para as famílias.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecossistema" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-teal-800">O Ecossistema em Crise</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">A falha sistêmica reverbera, gerando consequências devastadoras para todos os envolvidos no processo educacional.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                        <h3 class="font-bold text-xl text-blue-800">Alunos Neurodivergentes</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Enfrentam um ambiente hostil que subestima seu potencial, levando à exclusão social e a taxas alarmantes de evasão escolar.</p>
+                        <div class="mt-4 pt-4 border-t">
+                            <p class="text-3xl font-bold text-blue-600">1 em 4</p>
+                            <p class="text-sm text-gray-500">Apenas 25% das pessoas com deficiência concluem a educação básica.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-red-500">
+                        <h3 class="font-bold text-xl text-red-800">Professores</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Sentem-se despreparados, inseguros e sobrecarregados, com receio de errar por falta de formação específica para lidar com a neurodiversidade.</p>
+                        <div class="mt-4 pt-4 border-t">
+                            <p class="text-3xl font-bold text-red-600">22%</p>
+                            <p class="text-sm text-gray-500">Apenas 22% dos professores se sentem preparados para lecionar para alunos com deficiência.</p>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                        <h3 class="font-bold text-xl text-green-800">Famílias</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Arcam com a sobrecarga de lutar por direitos básicos, buscando laudos e apoio, sentindo-se desamparadas e sem parceiros na jornada educacional.</p>
+                         <div class="mt-4 pt-4 border-t">
+                            <p class="text-3xl font-bold text-green-600">Luta diária</p>
+                            <p class="text-sm text-gray-500">Transformam-se em advogados para garantir o que a lei já prevê.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-500">
+                        <h3 class="font-bold text-xl text-purple-800">Gestores Escolares</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Enfrentam pressão legal e das famílias, mas sem recursos, orçamento ou conhecimento para implementar uma inclusão efetiva.</p>
+                         <div class="mt-4 pt-4 border-t">
+                             <p class="text-3xl font-bold text-purple-600">Dilema</p>
+                            <p class="text-sm text-gray-500">Pressionados pela lei, mas limitados pela falta de recursos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="crise" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-teal-800">Radiografia do Fracasso Sistêmico</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Os dados revelam a profundidade da crise. A falta de preparo docente é o epicentro, com efeitos em cascata sobre a evasão escolar e a falta de infraestrutura.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-4 sm:p-6 rounded-lg">
+                    <div class="flex justify-center border-b mb-4">
+                        <button id="btn-chart-1" class="chart-btn active px-4 py-2 font-semibold text-teal-700 border-b-2 border-teal-700">Formação Docente</button>
+                        <button id="btn-chart-2" class="chart-btn px-4 py-2 font-semibold text-gray-500 border-b-2 border-transparent">Evasão Escolar</button>
+                        <button id="btn-chart-3" class="chart-btn px-4 py-2 font-semibold text-gray-500 border-b-2 border-transparent">Infraestrutura</button>
+                    </div>
+
+                    <div id="chart-view-1" class="chart-view">
+                        <h3 class="text-center font-semibold text-lg text-gray-700 mb-2">O Abismo na Formação de Professores</h3>
+                         <div class="chart-container">
+                            <canvas id="teacherTrainingChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-2">Fonte: MEC / CNTE (2022)</p>
+                    </div>
+                    <div id="chart-view-2" class="chart-view hidden">
+                        <h3 class="text-center font-semibold text-lg text-gray-700 mb-2">Disparidade na Conclusão da Educação Básica</h3>
+                        <div class="chart-container">
+                            <canvas id="educationGapChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-2">Fonte: Pnad Contínua (2022)</p>
+                    </div>
+                    <div id="chart-view-3" class="chart-view hidden">
+                        <h3 class="text-center font-semibold text-lg text-gray-700 mb-2">Infraestrutura Escolar para Inclusão</h3>
+                        <div class="chart-container !h-64 md:!h-80 !max-h-[320px]">
+                            <canvas id="infrastructureChart"></canvas>
+                        </div>
+                         <p class="text-center text-sm text-gray-500 mt-2">Fonte: Censo Escolar (2023)</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="solucao" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl md:text-4xl font-bold text-teal-800">ENGREN.AI: Uma Solução de Efeito Multiplicador</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Propomos uma plataforma digital integrada que atua nas três frentes mais críticas do problema, criando um ciclo virtuoso de capacitação, conexão e validação.</p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row items-center gap-8">
+                    <div class="w-full lg:w-1/2">
+                        <div id="pillar-info-container" class="bg-white p-6 rounded-lg shadow-lg min-h-[200px] fade-in">
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 grid grid-cols-1 gap-6">
+                        <div id="pillar-capacitacao" class="pillar-card cursor-pointer bg-white p-6 rounded-lg border-2 border-transparent shadow-md flex items-start gap-4">
+                            <span class="text-3xl">🎓</span>
+                            <div>
+                                <h3 class="font-bold text-xl text-teal-800">Capacitação</h3>
+                                <p class="text-gray-600">Hub de conhecimento com cursos e certificações para qualificar educadores.</p>
+                            </div>
+                        </div>
+                        <div id="pillar-conexao" class="pillar-card cursor-pointer bg-white p-6 rounded-lg border-2 border-transparent shadow-md flex items-start gap-4">
+                             <span class="text-3xl">🔗</span>
+                            <div>
+                                <h3 class="font-bold text-xl text-teal-800">Conexão</h3>
+                                <p class="text-gray-600">Marketplace de talentos para conectar profissionais certificados a escolas e famílias.</p>
+                            </div>
+                        </div>
+                        <div id="pillar-validacao" class="pillar-card cursor-pointer bg-white p-6 rounded-lg border-2 border-transparent shadow-md flex items-start gap-4">
+                             <span class="text-3xl">🏆</span>
+                            <div>
+                                <h3 class="font-bold text-xl text-teal-800">Validação</h3>
+                                <p class="text-gray-600">Ranking de inclusão para reconhecer boas práticas e guiar a escolha das famílias.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mercado" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-teal-800">Oportunidade em um Mercado Fragmentado</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">O cenário atual carece de uma solução integrada. Concorrentes focam em nichos, mas nenhum oferece o ciclo virtuoso que a ENGREN.AI propõe, unindo capacitação, conexão e validação para criar um ecossistema de confiança.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                     <div class="bg-gray-50 p-6 rounded-lg border">
+                        <h3 class="font-semibold text-xl text-gray-800">Plataformas de Conteúdo</h3>
+                        <p class="text-gray-600 mt-2 text-sm">(Ex: DIVERSA, Cursos do MEC)</p>
+                        <p class="mt-4 text-gray-700"><strong>Força:</strong> Credibilidade e alcance.</p>
+                        <p class="mt-1 text-gray-700"><strong>Lacuna ENGREN.AI:</strong> Falta um modelo SaaS escalável, conexão com o mercado de trabalho e um mecanismo de validação de escolas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg border">
+                        <h3 class="font-semibold text-xl text-gray-800">Marketplaces Abertos</h3>
+                         <p class="text-gray-600 mt-2 text-sm">(Ex: Superprof)</p>
+                        <p class="mt-4 text-gray-700"><strong>Força:</strong> Grande variedade de profissionais.</p>
+                        <p class="mt-1 text-gray-700"><strong>Lacuna ENGREN.AI:</strong> Falta curadoria, certificação de qualidade e um selo de confiança, deixando o ônus da verificação para os pais.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg border">
+                        <h3 class="font-semibold text-xl text-gray-800">Ferramentas de Nicho</h3>
+                        <p class="text-gray-600 mt-2 text-sm">(Ex: Jade Autism, Vínculo.app)</p>
+                        <p class="mt-4 text-gray-700"><strong>Força:</strong> Foco em tecnologias específicas (IA) ou transtornos (TEA).</p>
+                        <p class="mt-1 text-gray-700"><strong>Lacuna ENGREN.AI:</strong> Não resolvem o problema sistêmico da formação em larga escala nem criam um padrão de validação para o mercado como um todo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="estrategia" class="py-16 md:py-24">
+             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-teal-800">Estratégia de Lançamento Faseada</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Uma abordagem iterativa para construir um ecossistema robusto, mitigando riscos e gerando valor em cada etapa.</p>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute left-1/2 top-4 bottom-4 w-0.5 bg-gray-300 hidden md:block"></div>
+                    <div class="space-y-12 md:space-y-0">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-5/12">
+                                <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 border-teal-600">
+                                    <h3 class="font-bold text-xl text-teal-800">Fase 1: Capacitação</h3>
+                                    <p class="mt-2 text-gray-600">Lançar o hub de conhecimento com cursos (modelo freemium) para construir autoridade, atrair usuários e estabelecer a marca como referência em formação para neurodiversidade.</p>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold my-4 md:my-0 z-10">1</div>
+                            <div class="md:w-5/12"></div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-5/12 hidden md:block"></div>
+                            <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold my-4 md:my-0 z-10 order-first md:order-none">2</div>
+                            <div class="md:w-5/12 order-last md:order-none">
+                                <div class="p-6 bg-white rounded-lg shadow-lg border-r-4 md:border-l-4 md:border-r-0 border-teal-600">
+                                    <h3 class="font-bold text-xl text-teal-800">Fase 2: Conexão</h3>
+                                    <p class="mt-2 text-gray-600">Introduzir o marketplace, alavancando a base de profissionais certificados. Criar o motor do negócio conectando oferta qualificada com a demanda de escolas e famílias.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-5/12">
+                                <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 border-teal-600">
+                                    <h3 class="font-bold text-xl text-teal-800">Fase 3: Validação</h3>
+                                    <p class="mt-2 text-gray-600">Lançar o ranking de inclusão com base nos dados da plataforma. Transformar a ENGREN.AI em uma força de mercado, incentivando a melhoria contínua e a transparência.</p>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold my-4 md:my-0 z-10">3</div>
+                            <div class="md:w-5/12"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 ENGREN.AI. Transformando a educação inclusiva no Brasil.</p>
+            <p class="text-sm text-gray-400 mt-2">Esta é uma aplicação interativa baseada em dados de pesquisa de mercado.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const chartData = {
+                teacherTraining: {
+                    labels: ['Sem Formação Continuada em Ed. Especial', 'Com Formação'],
+                    data: [94, 6],
+                    backgroundColor: ['#fca5a5', '#6ee7b7'],
+                },
+                educationGap: {
+                    labels: ['Concluem Educação Básica'],
+                    datasets: [
+                        {
+                            label: 'Pessoas com Deficiência',
+                            data: [25],
+                            backgroundColor: '#60a5fa',
+                            borderColor: '#3b82f6',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'População Geral (Referência)',
+                            data: [75],
+                            backgroundColor: '#a78bfa',
+                            borderColor: '#8b5cf6',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                infrastructure: {
+                    labels: ['Possuem Banheiros Acessíveis', 'Possuem Salas de AEE Dedicadas'],
+                    data: [50, 23],
+                    backgroundColor: ['#fbbf24', '#f87171'],
+                }
+            };
+            
+            const pillarContent = {
+                capacitacao: {
+                    title: '🎓 Pilar Capacitação',
+                    text: 'Ataca diretamente o déficit de 94% na formação de professores. Oferecemos cursos de alta qualidade, com foco prático e acessíveis online, para transformar a insegurança dos educadores em confiança e competência. Este é o alicerce para construir uma marca de confiança e uma comunidade engajada.',
+                    color: 'teal'
+                },
+                conexao: {
+                    title: '🔗 Pilar Conexão',
+                    text: 'Resolve o problema da busca e descoberta de talentos. Para escolas, é a fonte de profissionais qualificados. Para pais, é um porto seguro para encontrar tutores e terapeutas. A sinergia com a certificação cria um selo de qualidade, alimentando um ciclo de crescimento e confiança.',
+                     color: 'amber'
+                },
+                validacao: {
+                    title: '🏆 Pilar Validação',
+                    text: 'Este é nosso pilar mais disruptivo. Ele dá poder aos pais com transparência e cria um forte incentivo de mercado para as escolas melhorarem. Uma boa posição no ranking vira um selo de excelência, atraindo as melhores famílias e talentos, e transformando a ENGREN.AI em uma plataforma que molda o mercado.',
+                    color: 'indigo'
+                }
+            };
+
+            let teacherChart, gapChart, infraChart;
+            
+            function createTeacherTrainingChart() {
+                const ctx = document.getElementById('teacherTrainingChart').getContext('2d');
+                if(teacherChart) teacherChart.destroy();
+                teacherChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: chartData.teacherTraining.labels,
+                        datasets: [{
+                            data: chartData.teacherTraining.data,
+                            backgroundColor: chartData.teacherTraining.backgroundColor,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            function createEducationGapChart() {
+                const ctx = document.getElementById('educationGapChart').getContext('2d');
+                if(gapChart) gapChart.destroy();
+                gapChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.educationGap.labels,
+                        datasets: chartData.educationGap.datasets
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function createInfrastructureChart() {
+                const ctx = document.getElementById('infrastructureChart').getContext('2d');
+                 if(infraChart) infraChart.destroy();
+                infraChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.infrastructure.labels,
+                        datasets: [{
+                            label: '% de escolas com o recurso',
+                            data: chartData.infrastructure.data,
+                            backgroundColor: chartData.infrastructure.backgroundColor,
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                             tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.raw}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            const chartBtns = document.querySelectorAll('.chart-btn');
+            const chartViews = document.querySelectorAll('.chart-view');
+            
+            chartBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const chartId = btn.id.split('-')[2];
+                    
+                    chartBtns.forEach(b => {
+                        b.classList.remove('active', 'text-teal-700', 'border-teal-700');
+                        b.classList.add('text-gray-500', 'border-transparent');
+                    });
+                    
+                    btn.classList.add('active', 'text-teal-700', 'border-teal-700');
+                    btn.classList.remove('text-gray-500', 'border-transparent');
+                    
+                    chartViews.forEach(view => view.classList.add('hidden'));
+                    
+                    const activeView = document.getElementById(`chart-view-${chartId}`);
+                    activeView.classList.remove('hidden');
+                    
+                    switch(chartId) {
+                        case '1': if(!teacherChart) createTeacherTrainingChart(); break;
+                        case '2': if(!gapChart) createEducationGapChart(); break;
+                        case '3': if(!infraChart) createInfrastructureChart(); break;
+                    }
+                });
+            });
+
+            createTeacherTrainingChart();
+            
+            const pillarCards = document.querySelectorAll('.pillar-card');
+            const pillarInfoContainer = document.getElementById('pillar-info-container');
+            
+            function updatePillarInfo(pillarId) {
+                const content = pillarContent[pillarId];
+                if (!content) return;
+
+                pillarInfoContainer.innerHTML = `
+                    <h3 class="font-bold text-2xl text-${content.color}-800">${content.title}</h3>
+                    <p class="mt-4 text-gray-700">${content.text}</p>
+                `;
+                pillarInfoContainer.classList.remove('fade-in');
+                void pillarInfoContainer.offsetWidth; 
+                pillarInfoContainer.classList.add('fade-in');
+
+                pillarCards.forEach(card => card.classList.remove('active'));
+                document.getElementById(`pillar-${pillarId}`).classList.add('active');
+            }
+
+            pillarCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const pillarId = card.id.split('-')[1];
+                    updatePillarInfo(pillarId);
+                });
+            });
+            
+            updatePillarInfo('capacitacao');
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main > section');
+
+            function onScroll() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
+</body>
+</html>
